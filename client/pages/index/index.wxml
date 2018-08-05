@@ -24,8 +24,11 @@
   <button wx:if="{{noSelect}}" class="today-botton" hover-class="none" bindtap="getWhatEat">
     今天吃什么
   </button>
-  <button wx:else class="today-botton" hover-class="none" open-type="getUserInfo" bindgetuserinfo="changeFood">
+  <button wx:elif="{{isAuth}}" class="today-botton" hover-class="none" bindtap="changeFood">
     换一换
+  </button>
+  <button wx:else class="today-botton" hover-class="none" open-type="getUserInfo" bindgetuserinfo="goAuth">
+    登录
   </button>
   <view class="location-mask" wx:if="{{isShowMapBtn}}">
     <view class="location-btn map" bindtap="getLocation">地图导航</view>

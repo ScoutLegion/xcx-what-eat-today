@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    isAuth: false,
     hasUserInfo: false,
     code: '',
     noSelect: true,
@@ -13,14 +14,11 @@ Page({
     foodInfo: null
   },
   onLoad () {
-    let _this = this
-    wx.login({
-      success (res) {
-        _this.setData({
-          code: res.code
-        })
-      }
-    })
+    if (app.globalData.userInfo) {
+      this.setData({
+        isAuth: true
+      })
+    }
   },
   fetchFood () {
     let _this = this
@@ -113,23 +111,30 @@ Page({
   // 换一换
   changeFood () {
     this.fetchFood()
-    // wx.getSetting({
-    //   success (res) {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-    //       wx.getUserInfo({
-    //         success (res) {
-    //           console.log(res)
-    //           // 可以将 res 发送给后台解码出 unionId
-    //           app.globalData.userInfo = res.userInfo
-    //         },
-    //         fail (err) {
-    //           console.log(err)
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
+  },
+  // 登录授权
+  goAuth (res) {
+    let _this = this
+    if (res.detail.errMsg === 'getUserInfo:ok') {
+      let postData = { ...res.detail.userInfo, ...{ code: app.globalData.code } }
+      wx.request({
+        url: 'http://localhost:5757/weapp/user/add',
+        data: postData,
+        method: 'POST',
+        success (res) {
+          _this.setData({
+            isAuth: true
+          })
+        },
+        fail (err) {
+          console.log(err)
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/auth/auth'
+      })
+    }
   },
   // 显示高德地图mask
   showMapBtn () {
