@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/nofood/nofood",
+    "pages/auth/auth"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "今天吃什么",
+    "navigationBarTextStyle": "black"
+  }
+}

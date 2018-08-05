@@ -1,0 +1,4 @@
+<view class="nofood-wrap">
+  <image src="../../images/nofoods@2x.png"></image>
+  <view class="nofood-title">附近没有可推荐的美食</view>
+</view>

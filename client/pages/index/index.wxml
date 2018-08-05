@@ -1,0 +1,34 @@
+<!-- index.wxml -->
+<view class="container">
+  <image class="top-bg" src='../../images/topbg.jpg'></image>
+  <view class="top-bg-mask"></view>
+  <view class="main-box">
+    <view class="first-view" wx:if="{{noSelect}}">
+      <view class="title1">不知道吃什么？</view>
+      <view class="title2">看看附近的</view>
+      <view class="title3">美食！</view>
+      <image class="girl-img" mode="widthFix" src="https://ojlf2aayk.qnssl.com/1532849467097/indexgirl@2x.png"></image>
+    </view>
+    <view class="second-view" wx:else bindtap="showMapBtn">
+      <image class="second-img" mode="widthFix" src="{{foodInfo.image}}"></image>
+      <view class="intro-view">
+        <view class="food-info">
+          <text class="food-name">{{foodInfo.name?foodInfo.name:"加载中……"}}</text>
+          <text class="food-price">￥{{foodInfo.price}}</text>
+        </view>
+        <image class="distan-icon" src="../../images/distanceIcon@2x.png"></image>
+        <view class="food-store">{{foodInfo.shopName}}</view>
+      </view>
+    </view>
+  </view>
+  <button wx:if="{{noSelect}}" class="today-botton" hover-class="none" bindtap="getWhatEat">
+    今天吃什么
+  </button>
+  <button wx:else class="today-botton" hover-class="none" open-type="getUserInfo" bindgetuserinfo="changeFood">
+    换一换
+  </button>
+  <view class="location-mask" wx:if="{{isShowMapBtn}}">
+    <view class="location-btn map" bindtap="getLocation">地图导航</view>
+    <view class="location-btn cancel" bindtap="hiddenMapBtn">取消</view>
+  </view>
+</view>

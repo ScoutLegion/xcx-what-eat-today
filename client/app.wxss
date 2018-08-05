@@ -1,0 +1,9 @@
+/**app.wxss**/
+
+page {
+  height: 100%;
+}
+
+button::after {
+  border: 0;
+}

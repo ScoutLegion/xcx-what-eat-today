@@ -1,0 +1,4 @@
+<view class="auth">
+  <image class="auth-img" mode="widthFix" src="../../images/auth.jpeg"></image>
+  <button class="auth-btn" open-type="openSetting" bindopensetting="openSettingBack">立即授权</button>
+</view>
