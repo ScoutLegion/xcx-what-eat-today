@@ -22,6 +22,9 @@ Page({
   },
   fetchFood () {
     let _this = this
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.request({
       url: 'http://localhost:5757/weapp/food',
       data: {
@@ -29,6 +32,7 @@ Page({
         lon: this.data.locaionInfo.longitude
       },
       success (res) {
+        wx.hideLoading()
         if (res.data.success) {
           res.data.data.price = res.data.data.price.toFixed(2)
           _this.setData({
