@@ -45,6 +45,7 @@ Page({
         }
       },
       fail (err) {
+        wx.hideLoading()
         console.log(err)
       }
     })

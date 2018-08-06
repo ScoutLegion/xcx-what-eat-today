@@ -30,6 +30,7 @@ for (const key in wx) {
   }
 }
 
+
 module.exports = {
   formatTime: formatTime
 }
