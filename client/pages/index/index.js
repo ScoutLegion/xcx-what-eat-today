@@ -19,7 +19,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: 'http://192.168.199.162:5757/weapp/food',
+      url: 'https://ggstupid.cn/weapp/food',
       data: {
         lat: this.data.locaionInfo.latitude,
         lon: this.data.locaionInfo.longitude
@@ -121,7 +121,7 @@ Page({
     if (res.detail.errMsg === 'getUserInfo:ok') {
       let postData = { ...res.detail.userInfo, ...{ code: app.globalData.code } }
       wx.request({
-        url: 'http://localhost:5757/weapp/user/add',
+        url: 'https://ggstupid.cn/weapp/user/add',
         data: postData,
         method: 'POST',
         success (res) {
@@ -144,7 +144,7 @@ Page({
     console.log(app)
     let sendData = { ...this.data.foodInfo, ...{ userId: app.globalData.userId } }
     wx.request({
-      url: 'http://192.168.199.162:5757/weapp/food/add',
+      url: 'https://ggstupid.cn/weapp/food/add',
       method: 'POST',
       data: sendData,
       success (res) {
