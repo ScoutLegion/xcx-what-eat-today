@@ -21,12 +21,15 @@ module.exports = {
         try {
             const userAuth = await axios.get(`https://api.weixin.qq.com/sns/jscode2session?appid=${configs.appId}&secret=${configs.appSecret}&js_code=${code}&grant_type=authorization_code`)
             if (!userAuth.data.openid) {
-                ctx.state.code = -1
-                ctx.state.data = userAuth.data.errmsg
-                return
-            }
-            let id
-            const ids = await knex('user').where({ open_id: userAuth.data.openid }).select('id')
+                ctx.body = {
+                    success: false,
+                    code: -1,
+                    msg: userAuth.data.errmsg
+                };
+                return;
+            };
+            let id;
+            const ids = await knex('user').where({ open_id: userAuth.data.openid }).select('id');
             if (ids && ids.length > 0) {
                 await knex('user').where(ids[0]).update({
                     nickname: nickname,
@@ -36,8 +39,8 @@ module.exports = {
                     city: city,
                     province: province,
                     country: country
-                })
-                id = ids[0].id
+                });
+                id = ids[0].id;
             } else {
                 const newIds = await knex('user')
                     .returning('id')
@@ -51,11 +54,15 @@ module.exports = {
                         country: country,
                         open_id: userAuth.data.openid,
                         updated_at: new Date()
-                    })
-                id = newIds[0]
+                    });
+                id = newIds[0];
             }
-            ctx.state.code = 0
-            ctx.state.data = { id }
+            ctx.body = {
+                success: true,
+                data: { id },
+                code: 200,
+                msg: '成功'
+            }
         } catch (error) {
             console.error('sql insert failure', error)
         }

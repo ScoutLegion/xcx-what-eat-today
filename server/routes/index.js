@@ -33,6 +33,7 @@ router.get('/message', controllers.message.get)
 router.post('/message', controllers.message.post)
 
 router.get('/food', controllers.food.getFood)
+router.post('/food/add', controllers.food.saveFood)
 router.post('/user/add', controllers.user.addUser)
 
 module.exports = router

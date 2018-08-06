@@ -1,4 +1,5 @@
 const axios = require('axios')
+const knex = require('../mysql')
 
 module.exports = {
     getFood: async (ctx, next) => {
@@ -16,7 +17,7 @@ module.exports = {
             if (!elemeData.data || elemeData.data.length === 0) {
                 return
             }
-      // 随机获取店铺信息
+            // 随机获取店铺信息
             const shops = elemeData.data
             const randomIndex = Math.floor(shops.length * Math.random())
             const shop = shops[randomIndex]
@@ -45,12 +46,41 @@ module.exports = {
             }
         } catch (error) {
             ctx.state.code = -1
-      // ctx.state.data=error;
+            // ctx.state.data=error;
+        }
+    },
+    saveFood: async ctx => {
+        const { foodName, shopName, shopDistance, lat, lon, price, userId } = ctx.request.body;
+
+        if (!userId) {
+            ctx.body = {
+                success: false,
+                code: -1,
+                msg: 'userId不能为空'
+            }
+            return;
+        }
+
+        await knex('user_choose_food')
+            .returning('id')
+            .insert({
+                user_id: userId,
+                food_name: foodName,
+                food_shop_name: shopName,
+                shop_distance: shopDistance,
+                shop_latitude: lat,
+                shop_longitude: lon,
+                food_price: price
+            });
+        ctx.body = {
+            success: true,
+            code: 200,
+            msg: '成功'
         }
     }
 }
 
-function getImage (imagePath) {
+function getImage(imagePath) {
     imagePath = insertStr(imagePath, 3, '/')
     imagePath = insertStr(imagePath, 1, '/')
 
