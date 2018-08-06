@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    isAuth: false,
+    isAuth: true,
     hasUserInfo: false,
     code: '',
     noSelect: true,
@@ -13,20 +13,13 @@ Page({
     timeLine: null,
     foodInfo: null
   },
-  onLoad () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        isAuth: true
-      })
-    }
-  },
   fetchFood () {
     let _this = this
     wx.showLoading({
       title: '加载中',
     })
     wx.request({
-      url: 'http://localhost:5757/weapp/food',
+      url: 'http://192.168.199.162:5757/weapp/food',
       data: {
         lat: this.data.locaionInfo.latitude,
         lon: this.data.locaionInfo.longitude
@@ -34,10 +27,16 @@ Page({
       success (res) {
         wx.hideLoading()
         if (res.data.success) {
-          res.data.data.price = res.data.data.price.toFixed(2)
-          _this.setData({
-            foodInfo: res.data.data
-          })
+          if (res.data.data.name) {
+            res.data.data.price = res.data.data.price.toFixed(2)
+            _this.setData({
+              foodInfo: res.data.data
+            })
+          } else {
+            wx.navigateTo({
+              url: '/pages/nofood/nofood'
+            })
+          }
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -142,6 +141,18 @@ Page({
   },
   // 显示高德地图mask
   showMapBtn () {
+    let sendData = { ...this.data.foodInfo, ...{ userId: app.globalData.userId } }
+    wx.request({
+      url: 'http://192.168.199.162:5757/weapp/food/add',
+      method: 'POST',
+      data: sendData,
+      success (res) {
+        console.log(res)
+      },
+      fail (err) {
+        console.log(err)
+      }
+    })
     this.setData({
       isShowMapBtn: true
     })

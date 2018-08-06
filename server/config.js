@@ -33,7 +33,7 @@ const CONF = {
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
      */
     mysql: {
-        host: 'localhost',
+        host: '192.168.199.162',
         port: 3306,
         user: 'root',
         db: 'scout_legion',

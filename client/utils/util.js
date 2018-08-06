@@ -14,17 +14,20 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-function login () {
-  return new Promise((resolve, reject) => {
-    wx.request({
-      success () {
-        resolve()
-      },
-      fail () {
-        reject()
-      }
+function promiseify (func) {
+  return (args = {}) => {
+    return new Promise((resolve, reject) => {
+      func.call(wx, Object.assign(args, {
+        success: resolve,
+        fail: reject,
+      }));
     })
-  })
+  }
+}
+for (const key in wx) {
+  if (Object.prototype.hasOwnProperty.call(wx, key) && typeof wx[key] === 'function') {
+    wx[`_${key}`] = promiseify(wx[key]);
+  }
 }
 
 module.exports = {

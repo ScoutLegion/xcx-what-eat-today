@@ -25,11 +25,11 @@ module.exports = {
                     success: false,
                     code: -1,
                     msg: userAuth.data.errmsg
-                };
-                return;
+                }
+                return
             };
-            let id;
-            const ids = await knex('user').where({ open_id: userAuth.data.openid }).select('id');
+            let id
+            const ids = await knex('user').where({ open_id: userAuth.data.openid }).select('id')
             if (ids && ids.length > 0) {
                 await knex('user').where(ids[0]).update({
                     nickname: nickname,
@@ -39,8 +39,8 @@ module.exports = {
                     city: city,
                     province: province,
                     country: country
-                });
-                id = ids[0].id;
+                })
+                id = ids[0].id
             } else {
                 const newIds = await knex('user')
                     .returning('id')
@@ -54,8 +54,8 @@ module.exports = {
                         country: country,
                         open_id: userAuth.data.openid,
                         updated_at: new Date()
-                    });
-                id = newIds[0];
+                    })
+                id = newIds[0]
             }
             ctx.body = {
                 success: true,
