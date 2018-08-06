@@ -31,15 +31,15 @@ module.exports = {
             let id
             const ids = await knex('user').where({ open_id: userAuth.data.openid }).select('id')
             if (ids && ids.length > 0) {
-                await knex('user').where(ids[0]).update({
-                    nickname: nickname,
-                    avatar: avatar,
-                    name: nickname,
-                    gender: gender,
-                    city: city,
-                    province: province,
-                    country: country
-                })
+                // await knex('user').where(ids[0]).update({
+                //     nickname: nickname,
+                //     avatar: avatar,
+                //     name: nickname,
+                //     gender: gender,
+                //     city: city,
+                //     province: province,
+                //     country: country
+                // })
                 id = ids[0].id
             } else {
                 const newIds = await knex('user')

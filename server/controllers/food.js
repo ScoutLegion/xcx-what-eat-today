@@ -50,7 +50,7 @@ module.exports = {
         }
     },
     saveFood: async ctx => {
-        const { foodName, shopName, shopDistance, lat, lon, price, userId } = ctx.request.body
+        const { name, shopName, distance, latitude, longitude, price, userId } = ctx.request.body
 
         if (!userId) {
             ctx.body = {
@@ -65,11 +65,11 @@ module.exports = {
       .returning('id')
       .insert({
           user_id: userId,
-          food_name: foodName,
+          food_name: name,
           food_shop_name: shopName,
-          shop_distance: shopDistance,
-          shop_latitude: lat,
-          shop_longitude: lon,
+          shop_distance: distance,
+          shop_latitude: latitude,
+          shop_longitude: longitude,
           food_price: price
       })
         ctx.body = {

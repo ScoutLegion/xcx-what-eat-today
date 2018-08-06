@@ -141,6 +141,7 @@ Page({
   },
   // 显示高德地图mask
   showMapBtn () {
+    console.log(app)
     let sendData = { ...this.data.foodInfo, ...{ userId: app.globalData.userId } }
     wx.request({
       url: 'http://192.168.199.162:5757/weapp/food/add',
