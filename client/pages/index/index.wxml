@@ -7,7 +7,7 @@
       <view class="title1">不知道吃什么？</view>
       <view class="title2">看看附近的</view>
       <view class="title3">美食！</view>
-      <image class="girl-img" mode="widthFix" src="https://ojlf2aayk.qnssl.com/1532849467097/indexgirl@2x.png"></image>
+      <image class="girl-img" mode="widthFix" src="../../images/indexgirl@2x.png"></image>
     </view>
     <view class="second-view" wx:else bindtap="showMapBtn">
       <image class="second-img" mode="widthFix" src="{{foodInfo.image}}"></image>

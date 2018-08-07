@@ -11,7 +11,8 @@ Page({
     isShowMapBtn: false,
     locaionInfo: null,
     timeLine: null,
-    foodInfo: null
+    foodInfo: null,
+    userImageBase64: null
   },
   fetchFood () {
     let _this = this

@@ -17,7 +17,7 @@ module.exports = {
             if (!elemeData.data || elemeData.data.length === 0) {
                 return
             }
-      // 随机获取店铺信息
+            // 随机获取店铺信息
             const shops = elemeData.data
             const randomIndex = Math.floor(shops.length * Math.random())
             const shop = shops[randomIndex]
@@ -46,7 +46,7 @@ module.exports = {
             }
         } catch (error) {
             ctx.state.code = -1
-      // ctx.state.data=error;
+            // ctx.state.data=error;
         }
     },
     saveFood: async ctx => {
@@ -62,16 +62,16 @@ module.exports = {
         }
 
         await knex('user_choose_food')
-      .returning('id')
-      .insert({
-          user_id: userId,
-          food_name: name,
-          food_shop_name: shopName,
-          shop_distance: distance,
-          shop_latitude: latitude,
-          shop_longitude: longitude,
-          food_price: price
-      })
+            .returning('id')
+            .insert({
+                user_id: userId,
+                food_name: name,
+                food_shop_name: shopName,
+                shop_distance: distance,
+                shop_latitude: latitude,
+                shop_longitude: longitude,
+                food_price: price
+            })
         ctx.body = {
             success: true,
             code: 200,
@@ -85,9 +85,9 @@ function getImage (imagePath) {
     imagePath = insertStr(imagePath, 1, '/')
 
     if (imagePath.indexOf('jpeg') >= 0) {
-        return `https://fuss10.elemecdn.com/${imagePath}.jpeg?imageMogr2/thumbnail/400x400/format/webp/quality/85`
+        return `https://fuss10.elemecdn.com/${imagePath}.jpeg?imageMogr2/thumbnail/400x400/format/jpeg/quality/85`
     } else {
-        return `https://fuss10.elemecdn.com/${imagePath}.png?imageMogr2/thumbnail/400x400/format/webp/quality/85`
+        return `https://fuss10.elemecdn.com/${imagePath}.png?imageMogr2/thumbnail/400x400/format/jpeg/quality/85`
     }
 }
 
