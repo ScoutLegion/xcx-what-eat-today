@@ -33,11 +33,11 @@ const CONF = {
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
      */
     mysql: {
-        host: '192.168.199.162',
+        host: 'localhost',
         port: 3306,
         user: 'root',
         db: 'scout_legion',
-        pass: '12345678',
+        pass: '123456',
         char: 'utf8mb4'
     },
 
