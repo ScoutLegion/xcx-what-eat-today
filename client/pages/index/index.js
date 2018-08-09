@@ -14,6 +14,13 @@ Page({
     foodInfo: null,
     userImageBase64: null
   },
+  onShareAppMessage () {
+    return {
+      title: '今天吃什么--美食导航平台',
+      imageUrl: '../../images/auth.jpeg',
+      path: 'pages/index/index',
+    }
+  },
   fetchFood () {
     let _this = this
     wx.showLoading({
@@ -30,6 +37,7 @@ Page({
         if (res.data.success) {
           if (res.data.data.name) {
             res.data.data.price = res.data.data.price.toFixed(2)
+            res.data.data.distance = (res.data.data.distance / 1000).toFixed(2)
             _this.setData({
               foodInfo: res.data.data
             })

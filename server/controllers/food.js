@@ -18,7 +18,7 @@ module.exports = {
                 return
             }
             // 随机获取店铺信息
-            const shops = elemeData.data
+            const shops = elemeData.data.filter(item => item.distance < 1000);
             const randomIndex = Math.floor(shops.length * Math.random())
             const shop = shops[randomIndex]
 
@@ -26,7 +26,7 @@ module.exports = {
             if (!FoodData.data || FoodData.data.length === 0 || !FoodData.data[0].foods || FoodData.data[0].foods.length === 0) {
                 return
             }
-            const foods = FoodData.data[0].foods
+            const foods = FoodData.data[0].foods.filter(item => item.specfoods[0].price > 8);
             const foodRandomIndex = Math.floor(foods.length * Math.random())
             const food = foods[foodRandomIndex]
 

@@ -17,6 +17,7 @@
           <text class="food-price">￥{{foodInfo.price}}</text>
         </view>
         <image class="distan-icon" src="../../images/distanceIcon@2x.png"></image>
+        <text class="distan">{{foodInfo.distance}}km</text>
         <view class="food-store">{{foodInfo.shopName}}</view>
       </view>
     </view>
