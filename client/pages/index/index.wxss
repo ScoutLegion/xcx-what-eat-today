@@ -96,6 +96,15 @@
   right: 32rpx;
 }
 
+.distan {
+  text-align: center;
+  position: absolute;
+  top: 122rpx;
+  right: 32rpx;
+  font-size: 24rpx;
+  color: #888888
+}
+
 .food-store {
   width: 450rpx;
   font-size: 24rpx;
