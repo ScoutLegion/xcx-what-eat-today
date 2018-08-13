@@ -9,13 +9,21 @@ module.exports = {
         console.log(lon)
 
         if (!lat || !lon) {
-            return
+            return ctx.body = {
+                msg: '无法获取经纬度',
+                code: 400,
+                success: false
+            }
         }
 
         try {
             const elemeData = await axios.get(`https://www.ele.me/restapi/shopping/restaurants?extras%5B%5D=activities&geohash=wtmk695x1j5w&latitude=${lat}&limit=24&longitude=${lon}&offset=0&restaurant_category_ids%5B%5D=-100&sign=1532913317660&terminal=web`)
             if (!elemeData.data || elemeData.data.length === 0) {
-                return
+                return ctx.body = {
+                    msg: '附近没有店铺',
+                    success: false,
+                    code: 400
+                }
             }
             // 随机获取店铺信息
             const shops = elemeData.data.filter(item => item.distance < 1000);
@@ -24,7 +32,11 @@ module.exports = {
 
             const FoodData = await axios.get(`https://www.ele.me/restapi/shopping/v2/menu?restaurant_id=${shop.id}&terminal=web`)
             if (!FoodData.data || FoodData.data.length === 0 || !FoodData.data[0].foods || FoodData.data[0].foods.length === 0) {
-                return
+                return ctx.body = {
+                    msg: '附近没有美食',
+                    success: true,
+                    code: 200
+                }
             }
             const foods = FoodData.data[0].foods.filter(item => item.specfoods[0].price > 8);
             const foodRandomIndex = Math.floor(foods.length * Math.random())
